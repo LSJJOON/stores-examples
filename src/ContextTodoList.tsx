@@ -36,7 +36,9 @@ function TodoList() {
               {todos.map((todo) => (
                 <TodoItem
                   key={todo.id}
-                  todo={todo}
+                  id={todo.id}
+                  title={todo.title}
+                  isDone={todo.isDone}
                   onToggle={toggle}
                   onDelete={deleteTodo}
                 />

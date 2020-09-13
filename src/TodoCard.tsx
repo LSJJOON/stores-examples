@@ -1,9 +1,11 @@
-import React from "react";
+import React, { memo } from "react";
 import styled from "styled-components";
 
 interface Props {
   className?: string;
-  todo: Todo;
+  title: string;
+  isDone: boolean;
+  id: string;
   onToggle: (id: string) => void;
   onDelete: (id: string) => void;
 }
@@ -26,19 +28,23 @@ const DoneToggleButton = styled.button``;
 
 const DelteButton = styled.button``;
 
-function TodoCard({ className, todo, onToggle, onDelete }: Props) {
-  console.log("TodoCard Render");
+function TodoCard({ className, title, isDone, id, onToggle, onDelete }: Props) {
+  console.log("todo render");
   return (
     <Container className={className}>
-      <Title>{`title: ${todo.title}  ${todo.isDone ? "V" : "O"}`}</Title>
-      <DoneToggleButton onClick={() => onToggle(todo.id)}>
-        <ButtonTitle>{`${todo.isDone ? "cancel" : "done"}`}</ButtonTitle>
+      <Title>{`title: ${title}  ${isDone ? "V" : "O"}`}</Title>
+      <DoneToggleButton onClick={() => onToggle(id)}>
+        <ButtonTitle>{`${isDone ? "cancel" : "done"}`}</ButtonTitle>
       </DoneToggleButton>
-      <DelteButton onClick={() => onDelete(todo.id)}>
+      <DelteButton onClick={() => onDelete(id)}>
         <ButtonTitle>delete</ButtonTitle>
       </DelteButton>
     </Container>
   );
 }
 
-export default TodoCard;
+function shouldUpdate(prevProps: Props, nextProps: Props) {
+  return prevProps.isDone === nextProps.isDone;
+}
+
+export default memo(TodoCard, shouldUpdate);
