@@ -1,10 +1,13 @@
 import React from "react";
 import styled from "styled-components";
-import TodoProvider from "src/stores/context/TodoProvider";
+import ContextProvider from "src/stores/context/TodoProvider";
 import ContextTodoList from "src/ContextTodoList";
 import reduxStore from "src/stores/redux/rootStore";
 import { Provider as ReduxProvider } from "react-redux";
 import ReduxTodoList from "src/ReduxTodoList";
+import { Provider as MobxProvider } from "mobx-react";
+import MobxTodoList from "src/MobxTodoList";
+import MobxRootStore from "src/stores/mobx/RootStore";
 
 const Container = styled.div`
   flex: 1;
@@ -23,14 +26,18 @@ const Title = styled.div`
 function App() {
   return (
     <Container>
-      <TodoProvider>
+      <ContextProvider>
         <Title>Context</Title>
         <ContextTodoList />
-      </TodoProvider>
+      </ContextProvider>
       <ReduxProvider store={reduxStore}>
         <Title>Redux</Title>
         <ReduxTodoList />
       </ReduxProvider>
+      <MobxProvider store={MobxRootStore}>
+        <Title>Mobx</Title>
+        <MobxTodoList />
+      </MobxProvider>
     </Container>
   );
 }

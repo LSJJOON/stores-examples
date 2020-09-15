@@ -25,7 +25,6 @@ class TodoProvider extends React.Component {
   }
 
   private addTodo = (title: string) => {
-    console.log(title);
     const newTodo: Todo = {
       id: uuidv1(),
       title,
