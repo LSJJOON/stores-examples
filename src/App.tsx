@@ -2,6 +2,9 @@ import React from "react";
 import styled from "styled-components";
 import TodoProvider from "src/stores/context/TodoProvider";
 import ContextTodoList from "src/ContextTodoList";
+import reduxStore from "src/stores/redux/rootStore";
+import { Provider as ReduxProvider } from "react-redux";
+import ReduxTodoList from "src/ReduxTodoList";
 
 const Container = styled.div`
   flex: 1;
@@ -15,16 +18,20 @@ const Container = styled.div`
 const Title = styled.div`
   font-size: 20px;
   font-weight: bold;
-  margin-bottom: 32px;
+  margin: 32px 0;
 `;
 function App() {
   return (
-    <TodoProvider>
-      <Container>
-        <Title>Lets gogogo</Title>
+    <Container>
+      <TodoProvider>
+        <Title>Context</Title>
         <ContextTodoList />
-      </Container>
-    </TodoProvider>
+      </TodoProvider>
+      <ReduxProvider store={reduxStore}>
+        <Title>Redux</Title>
+        <ReduxTodoList />
+      </ReduxProvider>
+    </Container>
   );
 }
 
